@@ -3,6 +3,7 @@ const path = require('path');
 const routes = require('./controllers/index');
 const exphbs = require('express-handlebars');
 const helpers = require('./utils/helpers');
+require('dotenv').config();
 
 // set up sequelize connection
 const sequelize = require('./config/connection');
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 3001;
 
 // Create session and connect to SequelizeStore
 const sess = {
-    secret: 'Super secret secret',
+    secret: process.env.SESSION_SECRET,
     cookie: {
         // Session expiries after 1 hour 
         // 3600000/1000 seconds = 3600 seconds/ 60 minutes = 1 hour
