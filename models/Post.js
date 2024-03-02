@@ -34,7 +34,7 @@ Post.init(
      },     
      {
         sequelize,
-        timestamps: true,
+        timestamps: true, // sequelize automatically includes created at and updated at fields
         freezeTableName: true, 
         underscored: true,
         modelName: 'post'
