@@ -30,3 +30,28 @@ router.post('/', withAuth, async (req, res) => {
         res.status(400).json(err);
     }  
 });
+
+// PUT route to edit a post 
+router.put("/:id", withAuth, async (req, res) => {
+    try {
+      // Use Post.update to update the post with the provided data
+      const [updatedRowsCount] = await Post.update(req.body, {
+        where: { id: req.params.id },
+      });
+      // Check if any rows were affected (updated)
+      if (updatedRowsCount === 0) {
+        res.status(404).json({ message: "No post found with that id!" });
+        return;
+      }
+      // Retrieve the updated post after the update operation
+      const updatedPost = await Post.findOne({
+        where: { id: req.params.id },
+      });
+      // Respond with the updated post data
+      res.status(200).json(updatedPost);
+    } catch (err) {
+      // If an error occurs during the update, respond with a 500 status and an error message
+      res.status(500).json(err);
+    }
+  });
+  
