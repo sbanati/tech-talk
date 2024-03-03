@@ -13,6 +13,38 @@ router.get('/', async (req, res) => {
     }
 })
 
+// Get route to display individual post by id and show comments associated with the post
+router.get("/:id", async (req, res) => {
+    try {
+      // Find the post by its primary key (ID)
+      const postData = await Post.findByPk(req.params.id, {
+        // Include associated User model to get the post's username
+        include: [
+          { model: User, attributes: ["username"] },
+          {
+            // Include associated Comment model with nested User model to get comments and their usernames
+            model: Comment,
+            include: [{ model: User, attributes: ["username"] }],
+          },
+        ],
+      });
+      // Check if the post with the given ID exists
+      if (!postData) {
+        // If not found, respond with a 404 status and an error message
+        res.status(404).json({ message: "No post found with that id!" });
+        return;
+      }
+  
+      // Respond with a 200 status and the data about the requested post
+      res.status(200).json(postData);
+    } catch (err) {
+      // If an error occurs during the retrieval, respond with a 500 status and the error details
+      res.status(500).json(err);
+    }
+  });
+  
+
+
 // POST route to add a new post 
 router.post('/', withAuth, async (req, res) => {
     try {
@@ -54,4 +86,31 @@ router.put("/:id", withAuth, async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+// DELETE route to delete a post 
+router.delete('/:id', withAuth, async (req, res) => {
+    try {
+        // Check if the post exists by finding it using its primary key
+        const existingPost = await Post.findByPk(req.params.id);
+        // If the post is not found, respond with a 404 status and an error message
+        if (!existingPost) {
+            res.status(404).json({ error: 'Post Not Found' });
+            return;
+        }
+        // Delete all the comments attached to the post using Comment model
+        await Comment.destroy({
+            where: { post_id: req.params.id },
+        });
+        // Now, delete the post itself using the destroy method on the existingPost instance
+        const deletedPost = await existingPost.destroy();
+        // Respond with a 200 status and the data about the deleted post
+        res.status(200).json(deletedPost);
+    } catch (err) {
+        // If an error occurs during the deletion, respond with a 500 status and the error details
+        res.status(500).json(err);
+    }
+});
+
   
+  // Export the router
+  module.exports = router; 
