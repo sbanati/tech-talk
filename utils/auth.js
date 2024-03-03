@@ -1,3 +1,5 @@
+
+// Middleware function for user login checks 
 const withAuth = (req, res, next) => {
     // Redirect user to the login page if falsey
     if (!req.session.loggedIn) {

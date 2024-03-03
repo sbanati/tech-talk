@@ -2,7 +2,7 @@ const router = require('express').Router();
 const withAuth = require('../utils/auth');
 const { Post, User, Comment } = require('../models');
 
-// GET route to homepage 
+// GET route to homepage when interacting with homepage link
 router.get('/', async (req, res) => {
     try {
         // Find all posts include username attribute
@@ -24,5 +24,70 @@ router.get('/', async (req, res) => {
         res.status(500).json({error: 'Internal Server Error'});
     }
 });
+
+
+// GET request to dash board when interacting with dashboard link
+router.get('/dashboard', withAuth, async (req, res) => {
+    // If no authentication, redirect to login page
+    try {
+        const postData = await Post.findAll({
+            where: { user_id: req.session.user_id },
+            include: [{ model: User, attributes: ['username'] }],
+            
+        });
+        // Convert post data to JS object 
+        const posts = postData.map((post) => post.get({plain: true}));
+
+        res.render('dashboard', {
+            posts,
+            logged_in: req.session.logged_in,
+        });
+    }catch (err){
+        res.status(500).json(err)
+    }
+});
+
+//GET request login , triggers render login
+router.get('/login', (req, res) =>{
+    try {
+        res.render('login');
+    }catch {
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+})
+
+
+// Get request to create post page 
+router.get('/createPost', withAuth, (req, res) => {
+    try {
+        res.render('create-post',
+        {
+            loggedIn: req.session.loggedIn,
+            user: {username: req.session.username}
+        });
+    }catch (err){
+        res.json(err);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
