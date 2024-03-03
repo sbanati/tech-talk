@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
             // Specify to include model username attribute
             // Because of timestamps=true, the default behavior is to show updatedAt in descending order  
             include: [{ model: User, attributes: ['username',]}]
-
         });
         // Map through each post in the postData array and convert it to a plain JavaScript object
         const posts = postData.map((post) => post.get({ plain:true}));

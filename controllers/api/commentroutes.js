@@ -16,6 +16,8 @@ router.post('/', withAuth, async (req, res) => {
         res.status(200).json(newComment);
     } catch (err) {
         // If an error occurs during the comment creation, respond with a 400 status and an error message
-        res.status(400).json(err);
+        res.status(400).json({error: 'Failed to create comment'});
     }
 });
+
+module.exports = router;
