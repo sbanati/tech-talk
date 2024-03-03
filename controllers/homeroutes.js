@@ -2,7 +2,7 @@ const router = require('express').Router();
 const withAuth = require('../utils/auth');
 const { Post, User, Comment } = require('../models');
 
-// GET route to homepage when interacting with homepage link
+// GET route to the HOME page 
 router.get('/', async (req, res) => {
     try {
         // Find all posts include username attribute
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         // Render homepage template and pass the posts and login status data
         res.render('homepage', {
             posts, // Render all posts, different than individual 
-            logged_in: req.session.logged_in,
+            loggedIn: req.session.loggedIn,
         });
     } catch (err) {
         // If an error occurs, return a 500 status code 
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 });
 
 
-// GET request to dash board when interacting with dashboard link
+// GET request to DASHBOARD page
 router.get('/dashboard', withAuth, async (req, res) => {
     // If no authentication, redirect to login page
     try {
@@ -40,14 +40,14 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
         res.render('dashboard', {
             posts,
-            logged_in: req.session.logged_in,
+            loggedIn: req.session.loggedIn,
         });
     }catch (err){
         res.status(500).json(err)
     }
 });
 
-//GET request login , triggers render login
+//GET request to LOGIN page 
 router.get('/login', (req, res) =>{
     try {
         res.render('login');
@@ -57,7 +57,7 @@ router.get('/login', (req, res) =>{
 })
 
 
-// Get request to create post page 
+// Get request to CREATE POST page 
 router.get('/createPost', withAuth, (req, res) => {
     try {
         res.render('create-post',
@@ -71,7 +71,32 @@ router.get('/createPost', withAuth, (req, res) => {
 });
 
 
+// Get request to INDIVIDUAL POST & COMMENTS page 
+router.get('/post/:id', withAuth, async (req, res) =>{
+    try  {
 
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                {model: User, attributes: ['username']},
+                {
+                    model: Comment, 
+                    include: [{ model: User, attributes: ['username']}],
+                },
+            ],
+        });
+        // Convert to plain JS object 
+        const post = postData.get({ plain: true });
+        // Render post template 
+        res.render('post', {
+            ...post,
+            loggedIn: req.session.loggedIn,
+        });
+            
+    } catch (err) {
+
+        res.status(500).json(err);
+    }
+});
 
 
 
