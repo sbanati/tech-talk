@@ -16,7 +16,7 @@ Post.init(
             allowNull: false,
          },
         
-         post: { // do i call this post or content? 
+         content: { // do i call this post or content? 
             type: DataTypes.TEXT,
             allowNull: false,
             validate: {
