@@ -1,5 +1,5 @@
 // connect buttons 
-const dashBtn = document.querySelector('#dashboardbtn');
+const dashboardBtn = document.querySelector('#dashboardbtn');
 const homeBtn = document.querySelector('#homebtn');
 const loginBtn = document.querySelector('#loginbtn');
 const deleteBtn = document.querySelector('#deletebtn');
@@ -76,7 +76,7 @@ const loginBtnHandler = (event) =>{
 
 // Assign elements to handlers
 homeBtn.addEventListener('click', homeHandler);
-dashBtn.addEventListener('click', dashboardHandler);
+dashboardBtn.addEventListener('click', dashboardHandler);
 if(postBtn){
     postBtn.addEventListener('click', newPostHandler);
 }
