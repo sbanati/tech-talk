@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         });
         // Map through each post in the postData array and convert it to a plain JavaScript object
         const posts = postData.map((post) => post.get({ plain:true}));
-        // Render homepage template and pass the posts and login status data
+        // send to homepage.handlebars
         res.render('homepage', {
             posts, // Render all posts, different than individual 
             loggedIn: req.session.loggedIn,
@@ -38,6 +38,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
         // Convert post data to JS object 
         const posts = postData.map((post) => post.get({plain: true}));
 
+        // send to dashboard.handlebars
         res.render('dashboard', {
             posts,
             loggedIn: req.session.loggedIn,
@@ -50,6 +51,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 //GET request to LOGIN page 
 router.get('/login', (req, res) =>{
     try {
+        // send to login.handlebars
         res.render('login');
     }catch {
         res.status(500).json({error: 'Internal Server Error'});
@@ -60,7 +62,8 @@ router.get('/login', (req, res) =>{
 // Get request to CREATE POST page 
 router.get('/createPost', withAuth, (req, res) => {
     try {
-        res.render('create-post',
+        // send to createPost.handlebars
+        res.render('createPost',
         {
             loggedIn: req.session.loggedIn,
             user: {username: req.session.username}
@@ -86,8 +89,8 @@ router.get('/post/:id', withAuth, async (req, res) =>{
         });
         // Convert to plain JS object 
         const post = postData.get({ plain: true });
-        // Render post template 
-        res.render('post', {
+        // send to post.handlebars 
+        res.render('viewPost', {
             ...post,
             loggedIn: req.session.loggedIn,
         });
@@ -98,6 +101,40 @@ router.get('/post/:id', withAuth, async (req, res) =>{
     }
 });
 
+
+// GET request to go to EDIT PAGE to edit a singular post
+router.get('/editpost/:id', withAuth, async (req, res) => {
+    try {
+        // Find the post by its ID
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                { model: User, attributes: ['username'] },
+                {
+                    model: Comment,
+                    include: [{ model: User, attributes: ['username'] }],
+                },
+            ],
+        });
+        // Check if the post with the given ID exists
+        if (!postData) {
+            res.status(404).json({ message: 'No post found with that ID' });
+            return;
+        }
+        // Convert post data to a plain JS object
+        const post = postData.get({ plain: true });
+        // Render the 'editpost' template and pass the post data and login status
+        res.render('editpost', {
+            ...post,
+            loggedIn: req.session.loggedIn,
+        });
+    } catch (err) {
+        // Handle any errors that may occur during the process
+        console.error(err);
+        res.status(500).json(err);
+    }
+});
+
+module.exports = router;
 
 
 

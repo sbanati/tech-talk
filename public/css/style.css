@@ -1,1 +1,96 @@
 /* Basic styling for every page. */
+:root{
+    --dark-blue: #181d30;
+    --medium-dark: #4f5d75;
+    --light-grey: #bfc0c0;
+    --light-blue: #07f5f5;
+    --bg-white: #bfc0c0;
+
+    background-color: var(--bg-white);
+}
+h2{
+    font-family: 'Inter', ;
+    font-size: 54px;
+    text-align: center;
+    color: var(--light-blue);
+    margin-top: 3%;
+    margin-bottom: 0%;
+}
+.subtitle{
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Styling for navbar */
+.nav-bar span{
+    color: var(--light-blue);
+}
+.nav-bar{
+    background-color: var(--dark-blue);
+    color: white;
+    display: flex;
+    padding-left: 3%;
+    padding-right: 3%;
+    justify-content: space-between;
+}
+.nav-bar h1{
+    font-family: 'Inter', ;
+    font-size: 50px;
+    margin-top: 0.8%;
+    margin-bottom: 0.8%;
+}
+/* Styling for navbar menu */
+.nav-bar ul{
+    display: flex;
+    width: 30%;
+    margin-top: 0.6%;
+    margin-bottom: 0.6%;
+    padding-left: 0px;
+    text-align: center;
+    list-style-type: none;
+}
+.nav-bar ul li{
+    margin: 4%;
+}
+.nav-bar ul li:hover{
+    cursor: pointer;
+    color: var(--light-blue);
+}
+
+/* Button styling */
+.submit{
+    width: 30%;
+    padding: 2%;
+    margin-right: 35%;
+    margin-left: 35%;
+    background-color: var(--light-grey);
+    color: white;
+    border-radius: 25px;
+    border: none;
+}
+.submit:hover{
+    cursor: pointer;
+    background-color: var(--light-blue);
+}
+
+/* Styling for footer */
+footer{
+    background-color: var(--dark-blue);
+    color: white;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-top: 4%;
+    bottom: 0;
+    width: 100%;
+    position: sticky;
+}
+footer h4{
+    text-align: center;
+    margin-bottom: 0%;
+    font-size: 20px;
+}
+footer a{
+    margin: 1%;
+    text-decoration: none;
+    color: white;
+}

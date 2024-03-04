@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
     try {
         // Fetch the user with associated posts
         const user = await User.findByPk(req.params.id, {
-            include: [{ model: Post }],
+            include: [{ model: Post }, { model: Comment }],
             attributes: { exclude: ['password'] }, 
         });
         if (!user) {
