@@ -1,5 +1,4 @@
-/* styling for the posts and comments functionality */
-
+/* Styling for creating new post or comment */
 .new-post-box{
     width: 90%;
     margin-left: 5%;
@@ -8,8 +7,7 @@
 
 /* Styling for the forms */
 #new-post-form, #new-comment-form{
-    border: 3px solid var(--medium-dark);
-    box-shadow: 12px 12px 2px 1px var(--middle);
+    border: 3px solid var(--dark-blue);
     background-color: white;
     margin: 2%;
 }
@@ -42,7 +40,7 @@
     margin-bottom: 2%;
 }
 
-/* Styling for button to submit comments  */
+/* styling applied to the comment button  */
 .submit-comment{
     width: 10%;
     padding: 1%;
