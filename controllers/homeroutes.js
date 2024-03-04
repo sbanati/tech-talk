@@ -26,27 +26,58 @@ router.get('/', async (req, res) => {
 });
 
 
-// GET request to DASHBOARD page
-router.get('/dashboard', withAuth, async (req, res) => {
-    // If no authentication, redirect to login page
-    try {
-        const postData = await Post.findAll({
-            where: { user_id: req.session.user_id },
-            include: [{ model: User, attributes: ['username'] }],
+// // GET request to DASHBOARD page
+// router.get('/dashboard', withAuth, async (req, res) => {
+//     // If no authentication, redirect to login page
+//     try {
+//         const postData = await Post.findAll({
+//             where: { user_id: req.session.user_id },
+//             include: [{ model: User, attributes: ['username'] }],
             
-        });
-        // Convert post data to JS object 
-        const posts = postData.map((post) => post.get({plain: true}));
+//         });
+//         // Convert post data to JS object 
+//         const posts = postData.map((post) => post.get({plain: true}));
 
-        // send to dashboard.handlebars
+//         // send to dashboard.handlebars
+//         res.render('dashboard', {
+//             posts,
+//             loggedIn: req.session.loggedIn,
+//         });
+//     }catch (err){
+//         res.status(500).json(err)
+//     }
+// });
+
+
+// GET route to dashboard that requires log-in 
+router.get('/dashboard', withAuth, async (req, res) => {
+    // If we try to go to the dashboard without logging in, we will be redirected to the login page
+    try {
+        const rawPosts = await Post.findAll({
+            include: [{
+                model: User,
+                where: { username: req.session.username },
+            }]
+        });
+        const posts = rawPosts.map((post) => post.get({ plain: true }));
+        
+        // Send posts to dashboard.handlebars
         res.render('dashboard', {
             posts,
             loggedIn: req.session.loggedIn,
+            currentUser: req.session.username
         });
-    }catch (err){
-        res.status(500).json(err)
+    } catch (err) {
+        res.status(500).json(err);
     }
 });
+
+
+
+
+
+
+
 
 //GET request to LOGIN page 
 router.get('/login', (req, res) =>{

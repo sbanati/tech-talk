@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/css/view-post-comment.css">
+<div class="new-post-box">
+    <div class="posts">
+        <section class="card" data-id="{{post.id}}">
+            <div class="card-head">
+                <h3>{{post.title}}</h3>
+                <div>
+                    <div class="card-options" style="display:none" data-currentUser="{{currentUser}}">
+                        <p id="edit" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></p>
+                        <p id="delete" class="delete-btn"><i class="fa fa-trash" aria-hidden="true"></i></p>
+                    </div>
+                    <p>Posted by <span id="username">{{post.user.username}}</span> at {{format_date post.updatedAt}}</p>
+                </div>
+            </div>
+            <div class="card-body">
+                {{post.post}}
+            </div>
+        </section>
+    </div>
+    <div class="comments">
+        <h2>Comments:</h2>
+        {{#each post.comments}}
+        {{> comment_details }}
+        {{/each}}
+        <h3 id="leave-comment">Leave a comment:</h3>
+        <form id="new-comment-form">
+            <textarea id="new-comment"></textarea>
+            <input type="submit" class="submit submit-comment">
+        </form>
+    </div>
+</div>
+<script src="/js/viewComment.js"></script>
