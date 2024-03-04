@@ -21,13 +21,9 @@
             <li class="nav-item" id="dashboardbtn"><i class="fa-solid fa-gauge" style="font-size: 30px"></i></li>
             {{#if loggedIn}}
                <li class="nav-item" id="dashboardbtn"><i class="fa-solid fa-blog" style="font-size: 30px"></i></li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">Log Out</a>
-                </li>
+               <li class="nav-item" id="logoutbtn"><i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 30px;"></i> Log Out</li>
             {{else}}
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">Log In</a>
-                </li>
+             <li class="nav-item" id="loginbtn"><i class="fa-solid fa-right-to-bracket" style="font-size: 30px;"></i> Log In</li>    
             {{/if}}
         </ul>
     </nav>

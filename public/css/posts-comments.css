@@ -1,1 +1,51 @@
 /* styling for the posts and comments functionality */
+
+.new-post-box{
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+/* Styling for the forms */
+#new-post-form, #new-comment-form{
+    border: 3px solid var(--medium-dark);
+    box-shadow: 12px 12px 2px 1px var(--middle);
+    background-color: white;
+    margin: 2%;
+}
+#new-post-form{
+    padding: 7%;
+}
+#new-comment-form{
+    padding: 2%;
+}
+#new-post-form label{
+    font-size: 24px;
+}
+#new-post-form .title{
+    width: 100%;
+    margin-bottom: 5%;
+    padding: 1%;
+    border: 1px solid black;
+}
+#new-post-form textarea, #new-comment-form textarea{
+    width: 100%;
+    padding: 2%;
+    border: 1px solid black;
+}
+#new-post-form textarea{
+    height: 25%;
+    margin-bottom: 5%;
+}
+#new-comment-form textarea{
+    height: 10%;
+    margin-bottom: 2%;
+}
+
+/* Styling for button to submit comments  */
+.submit-comment{
+    width: 10%;
+    padding: 1%;
+    margin-right: 45%;
+    margin-left: 45%;
+}

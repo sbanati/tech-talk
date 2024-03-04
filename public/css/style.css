@@ -1,4 +1,4 @@
-/* Basic styling for every page. */
+/* General styling applied to pages. */
 :root{
     --dark-blue: #181d30;
     --medium-dark: #4f5d75;
@@ -60,7 +60,7 @@ h2{
     padding: 2%;
     margin-right: 35%;
     margin-left: 35%;
-    background-color: var(--light-grey);
+    background-color: var(--dark-blue);
     color: white;
     border-radius: 25px;
     border: none;

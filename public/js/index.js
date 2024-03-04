@@ -5,7 +5,7 @@ const loginBtn = document.querySelector('#loginbtn');
 const deleteBtn = document.querySelector('#deletebtn');
 const editBtn = document.querySelector('#editbtn');
 const postBtn = document.querySelector('#postbtn');
-const postCard = document.querySelector('.card-title');
+const postCard = document.querySelectorAll('.card-title');
 
 
 // Go to home page 
@@ -71,9 +71,12 @@ const loginBtnHandler = (event) =>{
     document.location.replace('/login');
 }
 
+
+
+
 // Assign elements to handlers
 homeBtn.addEventListener('click', homeHandler);
-dashBtn.addEventListener('click', dashHandler);
+dashBtn.addEventListener('click', dashboardHandler);
 if(postBtn){
     postBtn.addEventListener('click', newPostHandler);
 }
