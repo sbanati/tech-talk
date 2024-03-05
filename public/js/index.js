@@ -30,7 +30,6 @@ const newPostHandler = (event) => {
 
 }
 
-
 // Go to a new page to comment on a post you are seeing 
 const postCardHandler = (event) => {
     event.preventDefault();
@@ -42,9 +41,6 @@ const postCardHandler = (event) => {
         document.location.replace(`/post/${cardId}`);
     }
 }
-
-
-
 
 
 // Edit post handler
