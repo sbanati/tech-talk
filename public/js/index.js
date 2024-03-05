@@ -30,15 +30,22 @@ const newPostHandler = (event) => {
 
 }
 
-// Go to a new page to view a post and comment
+
+// Go to a new page to comment on a post you are seeing 
 const postCardHandler = (event) => {
     event.preventDefault();
 
-    console.log(event.path[0].attributes[1].value);
+    let cardId = event.target.getAttribute('id')
+
+    // console.log(event.path[0].attributes[1].value);
     if(cardId !== ''){
         document.location.replace(`/post/${cardId}`);
     }
 }
+
+
+
+
 
 // Edit post handler
 const editBtnHandler = (event) =>{
