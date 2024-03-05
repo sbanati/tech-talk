@@ -52,8 +52,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 
 
-
-//GET request to LOGIN page 
+//GET request to be taken to LOGIN page 
 router.get('/login', (req, res) =>{
     try {
         // send to login.handlebars
@@ -64,7 +63,7 @@ router.get('/login', (req, res) =>{
 })
 
 
-// Get request to CREATE POST page 
+// Get request to be taken to CREATE POST page 
 router.get('/createPost', withAuth, (req, res) => {
     try {
         // send to createPost.handlebars
@@ -79,7 +78,7 @@ router.get('/createPost', withAuth, (req, res) => {
 });
 
 
-// Get request to INDIVIDUAL POST & COMMENTS page 
+// Get request to be taken to INDIVIDUAL POST & COMMENTS page 
 router.get('/post/:id', withAuth, async (req, res) =>{
     try  {
 

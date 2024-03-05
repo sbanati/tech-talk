@@ -44,7 +44,6 @@ router.get("/:id", async (req, res) => {
   });
   
 
-
 // POST route to add a new post 
 router.post('/', withAuth, async (req, res) => {
     try {
@@ -57,8 +56,10 @@ router.post('/', withAuth, async (req, res) => {
         });  
         // Respond with a JSON object containing the newly created post
         res.status(200).json(newPost);
+        
     } catch (err) {
         // If an error occurs during the post creation, respond with a 400 status and an error message
+        console.log(err)
         res.status(400).json(err);
     }  
 });

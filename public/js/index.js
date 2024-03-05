@@ -34,7 +34,7 @@ const newPostHandler = (event) => {
 const postCardHandler = (event) => {
     event.preventDefault();
 
-    let cardId = event.target.getAttribute('id')
+    const cardId = event.target.getAttribute('id')
 
     // console.log(event.path[0].attributes[1].value);
     if(cardId !== ''){
@@ -47,7 +47,8 @@ const postCardHandler = (event) => {
 const editBtnHandler = (event) =>{
     event.preventDefault();
 
-    const cardId = event.path[1].dataset.editid;
+    // const cardId = event.path[1].dataset.editid; // Could i use event.target.dataset.editid
+    const cardId = event.target.dataset.editid;
     document.location.replace(`/edit/${cardId}`);
 }
 
