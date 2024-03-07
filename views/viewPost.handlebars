@@ -1,29 +1,29 @@
 <link rel="stylesheet" href="/css/posts-comments.css">
 <div class="new-post-box">
     <div class="posts">
-        <section class="card" data-id="{{post.id}}">
+        <section class="card" data-id="{{id}}">
             <div class="card-head">
-                <h3>{{post.title}}</h3>
+                <h3>{{title}}</h3>
                 <div>
                     <div class="card-options" style="display:none" data-currentUser="{{currentUser}}">
                         <p id="edit" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></p>
                         <p id="delete" class="delete-btn"><i class="fa fa-trash" aria-hidden="true"></i></p>
                     </div>
-                    <p>Posted by <span id="username">{{post.user.username}}</span> at {{format_date post.updatedAt}}</p>
+                    <p>Posted by <span id="username">{{user.username}}</span> at {{format_date updatedAt}}</p>
                 </div>
             </div>
             <div class="card-body">
-                {{post.post}}
+                {{post}}
             </div>
         </section>
     </div>
     <div class="comments">
         <h2>Comments:</h2>
-        {{#each post.comments}}
-        {{> comment_details }}
+        {{#each comments}}
+        {{> commentInfo }}
         {{/each}}
         <h3 id="leave-comment">Leave a comment:</h3>
-        <form id="new-comment-form">
+        <form id="new-comment-form" data-id={{id}}>
             <textarea id="new-comment"></textarea>
             <input type="submit" class="submit submit-comment">
         </form>

@@ -7,6 +7,12 @@ const displayOptions = async ()=>{
     // Get the req.session.username
     const sessionUsername = document.querySelector('.card-options').dataset.currentuser;
 
+    console.log('Card Options:', cardOptions);
+    console.log('Card Username:', cardUsername);
+    console.log('Session Username:', sessionUsername);
+
+
+
     // If card username and req.session.username match, display edit and delete buttons
     if(cardUsername===sessionUsername){
         cardOptions.style.display = 'flex';
@@ -18,22 +24,23 @@ const displayOptions = async ()=>{
 const commentHandler = async (event) =>{
     event.preventDefault();
 
-    const newComment = document.querySelector('#new-comment').value.trim();
-    const dataId = document.querySelector('.card').dataset.id;
+    const comment = document.querySelector('#new-comment').value.trim();
+    const post_id = event.target.dataset.id;
 
-    if(newComment){
-        const response = await fetch('/api/comments', {
+
+    if(comment){
+        const response = await fetch('/api/comment', {
             method: 'POST',
-            body: JSON.stringify({newComment, dataId}),
+            body: JSON.stringify({comment, post_id}),
             headers: ({'Content-Type': 'application/json'})
         });
 
         if(response.ok){
-            // If login information is correct, take user to the dashboard
+            
             document.location.reload();
         }else{
-            // Redirect to an error page
-            document.location.replace('/error');
+            // When unsuccessful, show alert
+            alert('Failed to create a comment.'); 
         }
     }
 };
